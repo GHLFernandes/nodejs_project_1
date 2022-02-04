@@ -13,7 +13,7 @@ class Tabelas {
             'servico VARCHAR(20) NOT NULL,' +
             'status VARCHAR(20) NOT NULL,' +
             'obs TEXT,' +
-            'data DATETIME NOT NULL,' +
+            'dataAgendamento DATETIME NOT NULL,' +
             'dataCriacao DATETIME NOT NULL,' +
             'PRIMARY KEY(id))';
 
