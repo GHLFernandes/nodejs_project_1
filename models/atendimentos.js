@@ -1,5 +1,6 @@
 const moment = require('moment'); //biblioteca utilizada para formatar a data
 const conexao = require('../infra/conexao');
+const axios = require('axios');
 
 class Atendimento {
     add(atendimento, res) {
@@ -53,12 +54,16 @@ class Atendimento {
     buscaPorId(id, res) {
         const sql = `SELECT * FROM atendimentos WHERE id = ${id};`;
 
-        conexao.query(sql, (erro, result) => {
+        conexao.query(sql, async(erro, result) => {
             const atendimento = result[0];
+            const cpf = atendimento.cliente;
 
             if (erro) {
                 res.status(400).json(erro);
             } else {
+                const { data } = await axios.get(`http://localhost:8082/${cpf}`);
+
+                atendimento.cliente = data;
                 res.status(200).json(atendimento);
             }
         });
